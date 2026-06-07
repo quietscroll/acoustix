@@ -10,7 +10,7 @@ keywords = ["speech", "audio", "tts", "metrics", "validation"]
 categories = ["multimedia::audio", "science", "development-tools"]
 
 [dependencies]
-hound = "3.5.1"
-rustfft = "6.2.0"
-num-complex = "0.4.6"
+hound = "3.5"
+rustfft = "6.2"
+num-complex = "0.4"
 thiserror = "2"
