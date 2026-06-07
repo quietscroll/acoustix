@@ -1,10 +1,11 @@
 # Acoustix 🎧
 
+[![Cargo Test](https://github.com/quietscroll/acoustix/actions/workflows/cargo-test.yml/badge.svg)](https://github.com/quietscroll/acoustix/actions/workflows/cargo-test.yml)
+[![docs.rs](https://img.shields.io/docsrs/acoustix)](https://docs.rs/acoustix)
+
 `acoustix` is a high-performance, open-source Rust library for the **automated validation and evaluation** of Text-to-Speech (TTS) and voice AI models.
 
 It implements standard objective speech metrics (Mel Cepstral Distortion, Dynamic Time Warping, Log Spectral Distance, and Segmental SNR) alongside transcription evaluations (WER, CER), speaker embedding similarity (SIM), speaker attribution accuracy (ACC), and advanced TTS validation checks (Fréchet distance solver, pitch contour analysis, and audio defect detection). This allows developers to run fast, memory-safe, and highly concurrent evaluations locally or in CI/CD pipelines without needing human raters or heavy machine learning models.
-
----
 
 ## Features
 
@@ -27,17 +28,6 @@ It implements standard objective speech metrics (Mel Cepstral Distortion, Dynami
 - **Decision & Aggregation Engine**:
   - **Automated Preference**: Compares two candidate audios against a reference baseline and declares the superior one.
   - **Rank Aggregation**: Takes a list of candidate model evaluations, normalizes their scores, and ranks them using a weighted multi-metric composite score.
-
----
-
-## Installation
-
-Add `acoustix` to your `Cargo.toml`:
-
-```toml
-[dependencies]
-acoustix = { path = "." } # Or version if published
-```
 
 ---
 
