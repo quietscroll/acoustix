@@ -1,4 +1,4 @@
-# Acoustix 🎧
+# acoustix
 
 [![Cargo Test](https://github.com/quietscroll/acoustix/actions/workflows/cargo-test.yml/badge.svg)](https://github.com/quietscroll/acoustix/actions/workflows/cargo-test.yml)
 [![docs.rs](https://img.shields.io/docsrs/acoustix)](https://docs.rs/acoustix)
@@ -28,6 +28,29 @@ It implements standard objective speech metrics (Mel Cepstral Distortion, Dynami
 - **Decision & Aggregation Engine**:
   - **Automated Preference**: Compares two candidate audios against a reference baseline and declares the superior one.
   - **Rank Aggregation**: Takes a list of candidate model evaluations, normalizes their scores, and ranks them using a weighted multi-metric composite score.
+
+## Installation
+
+Add `acoustix` to your `Cargo.toml`:
+
+```toml
+[dependencies]
+acoustix = { version = "0.1" }
+```
+
+### Feature Flags
+
+`acoustix` keeps its dependency footprint minimal and supports optional feature gates:
+
+* **`wav`** (Enabled by default): Enables WAV audio file loading support (depends on `hound`).
+* **`default`**: Includes `wav`.
+
+To use `acoustix` in a lightweight PCM-only environment, disable default features:
+
+```toml
+[dependencies]
+acoustix = { version = "0.1.0", default-features = false }
+```
 
 ---
 

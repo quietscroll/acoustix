@@ -10,7 +10,11 @@ keywords = ["speech", "audio", "tts", "metrics", "validation"]
 categories = ["multimedia::audio", "science", "development-tools"]
 
 [dependencies]
-hound = "3.5"
-rustfft = "6.2"
-num-complex = "0.4"
+hound = { version = "3.5.1", optional = true }
+rustfft = "6.2.0"
+num-complex = "0.4.6"
 thiserror = "2"
+
+[features]
+default = ["wav"]
+wav = ["dep:hound"]

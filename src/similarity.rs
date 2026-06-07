@@ -6,6 +6,7 @@ use std::path::Path;
 
 /// Loads a WAV file and converts it to mono f32 samples normalized between -1.0 and 1.0.
 /// Returns a tuple of (samples, sample_rate).
+#[cfg(feature = "wav")]
 pub fn load_wav<P: AsRef<Path>>(path: P) -> Result<(Vec<f32>, u32), AcoustixError> {
     let mut reader = hound::WavReader::open(path)?;
     let spec = reader.spec();
@@ -40,12 +41,9 @@ pub fn load_pcm<P: AsRef<Path>>(path: P) -> Result<Vec<f32>, AcoustixError> {
     use std::fs::File;
     use std::io::Read;
 
-    let mut file =
-        File::open(path).map_err(|e| AcoustixError::AudioError(hound::Error::IoError(e)))?;
+    let mut file = File::open(path)?;
     let mut bytes = Vec::new();
-    let _ = file
-        .read_to_end(&mut bytes)
-        .map_err(|e| AcoustixError::AudioError(hound::Error::IoError(e)))?;
+    let _ = file.read_to_end(&mut bytes)?;
 
     let mut samples = Vec::with_capacity(bytes.len() / 2);
     for chunk in bytes.chunks_exact(2) {
@@ -70,7 +68,12 @@ pub fn load_audio<P: AsRef<Path>>(
         .map(|ext| ext.to_lowercase());
 
     match extension.as_deref() {
+        #[cfg(feature = "wav")]
         Some("wav") => load_wav(path_ref),
+        #[cfg(not(feature = "wav"))]
+        Some("wav") => Err(AcoustixError::InvalidParameter(
+            "WAV support is disabled. Enable the 'wav' feature to load WAV files.".to_string(),
+        )),
         Some("pcm") | Some("raw") => {
             let samples = load_pcm(path_ref)?;
             Ok((samples, pcm_sample_rate))
@@ -432,6 +435,7 @@ mod tests {
     }
 
     #[test]
+    #[cfg(feature = "wav")]
     fn test_load_wav_integration() {
         let path = "target/test_temp.wav";
 

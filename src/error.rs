@@ -4,8 +4,13 @@ use thiserror::Error;
 #[derive(Error, Debug)]
 pub enum AcoustixError {
     /// Error related to reading or writing WAV files.
+    #[cfg(feature = "wav")]
     #[error("Audio file read/write error: {0}")]
     AudioError(#[from] hound::Error),
+
+    /// General I/O error.
+    #[error("I/O error: {0}")]
+    IoError(#[from] std::io::Error),
 
     /// Error thrown when an input signal or dataset is empty.
     #[error("Signal must not be empty: {0}")]
