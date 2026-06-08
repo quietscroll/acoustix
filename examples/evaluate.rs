@@ -28,7 +28,7 @@ fn main() {
     let test_path = &args[2];
 
     // Load reference audio
-    let (ref_sig, sr_ref) = match load_audio(ref_path, 22050) {
+    let (ref_sig, sr_ref) = match load_audio(ref_path, 24000) {
         Ok(res) => res,
         Err(e) => {
             eprintln!("Error loading reference audio: {}", e);
@@ -37,7 +37,7 @@ fn main() {
     };
 
     // Load test audio
-    let (test_sig, sr_test) = match load_audio(test_path, 22050) {
+    let (test_sig, sr_test) = match load_audio(test_path, 24000) {
         Ok(res) => res,
         Err(e) => {
             eprintln!("Error loading test audio: {}", e);
