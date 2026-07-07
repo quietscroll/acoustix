@@ -264,7 +264,7 @@ pub fn frechet_distance(
 /// Returns a vector of F0 values (0.0 represents unvoiced segments).
 pub fn track_f0(
     signal: &[f32],
-    sample_rate: u32,
+    sample_rate: u16,
     frame_len: usize,
     overlap: usize,
     min_f0: f32,
@@ -437,7 +437,7 @@ pub fn detect_glitches(signal: &[f32], derivative_threshold: f32) -> Vec<usize> 
 /// Flags loops (duration too high) or swallowing/deletion errors (duration too low).
 pub fn check_duration_ratio(
     signal_len: usize,
-    sample_rate: u32,
+    sample_rate: u16,
     text: &str,
 ) -> Result<f32, AcoustixError> {
     if text.is_empty() {
@@ -491,7 +491,7 @@ pub fn crest_factor(signal: &[f32]) -> Result<f32, AcoustixError> {
 /// Computes the silent padding duration (in seconds) at the start and end of a signal.
 pub fn silence_padding(
     signal: &[f32],
-    sample_rate: u32,
+    sample_rate: u16,
     frame_len: usize,
     overlap: usize,
     silence_threshold: f32,
@@ -562,7 +562,7 @@ fn hamming_window(len: usize) -> Vec<f32> {
 pub fn band_spectral_distance(
     ref_sig: &[f32],
     test_sig: &[f32],
-    sample_rate: u32,
+    sample_rate: u16,
     frame_len: usize,
     overlap: usize,
     freq_min: f32,

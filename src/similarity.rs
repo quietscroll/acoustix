@@ -7,10 +7,10 @@ use std::path::Path;
 /// Loads a WAV file and converts it to mono f32 samples normalized between -1.0 and 1.0.
 /// Returns a tuple of (samples, sample_rate).
 #[cfg(feature = "wav")]
-pub fn load_wav<P: AsRef<Path>>(path: P) -> Result<(Vec<f32>, u32), AcoustixError> {
+pub fn load_wav<P: AsRef<Path>>(path: P) -> Result<(Vec<f32>, u16), AcoustixError> {
     let mut reader = hound::WavReader::open(path)?;
     let spec = reader.spec();
-    let sample_rate = spec.sample_rate;
+    let sample_rate = spec.sample_rate as u16;
 
     let raw_samples: Vec<f32> = match spec.sample_format {
         hound::SampleFormat::Float => reader.samples::<f32>().map(|s| s.unwrap_or(0.0)).collect(),
@@ -59,8 +59,8 @@ pub fn load_pcm<P: AsRef<Path>>(path: P) -> Result<Vec<f32>, AcoustixError> {
 /// directly from the WAV header.
 pub fn load_audio<P: AsRef<Path>>(
     path: P,
-    pcm_sample_rate: u32,
-) -> Result<(Vec<f32>, u32), AcoustixError> {
+    pcm_sample_rate: u16,
+) -> Result<(Vec<f32>, u16), AcoustixError> {
     let path_ref = path.as_ref();
     let extension = path_ref
         .extension()
@@ -129,7 +129,7 @@ fn dct_ii_ortho(input: &[f32]) -> Vec<f32> {
 /// Returns a vector of frames, where each frame is a vector of MFCC coefficients.
 pub fn extract_mfcc(
     signal: &[f32],
-    sample_rate: u32,
+    sample_rate: u16,
     frame_len: usize,
     overlap: usize,
     num_mel_bands: usize,
@@ -353,7 +353,7 @@ pub fn compute_mcd(
 pub fn compute_mcd_between_signals(
     ref_sig: &[f32],
     test_sig: &[f32],
-    sample_rate: u32,
+    sample_rate: u16,
     frame_len: usize,
     overlap: usize,
     num_mel_bands: usize,

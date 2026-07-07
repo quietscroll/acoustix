@@ -31,7 +31,7 @@ pub fn compare_preference(
     test_a: &[f32],
     test_b: &[f32],
     metric: MetricType,
-    sample_rate: u32,
+    sample_rate: u16,
     frame_len: usize,
     overlap: usize,
 ) -> Result<PreferenceResult, AcoustixError> {
