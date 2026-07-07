@@ -1,6 +1,6 @@
 [package]
 name = "acoustix"
-version = "0.1.0"
+version = "0.2.0"
 edition = "2024"
 description = "A high-performance objective speech validation library for Text-to-Speech (TTS) AI models (implements MCD, DTW, LSD, SegSNR, and automated model ranking)."
 license = "MIT"
